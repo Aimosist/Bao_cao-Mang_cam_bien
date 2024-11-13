@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mang cam bien</title>
+
+    <!-- Link -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <style>
+        .controls-container {
+              display: flex;
+              gap: 15px;
+              justify-content: center;
+              margin-top: 20px;
+          }
+
+        .control-btn {
+             font-size: 24px;
+             padding: 15px;
+             border: none;
+             border-radius: 50%;
+             cursor: pointer;
+             transition: background-color 0.3s ease, color 0.3s ease;
+          }
+
+
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #ffffff;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+        }
+        #charts {
+            display: flex;
+            flex-direction: column; /* Sắp xếp dọc */
+            flex: 7; /* Chiếm 7 phần của chiều rộng */
+            gap: 10px; /* Khoảng cách giữa các biểu đồ */
+        }
+        .chart-container {
+            width: 95%; /* Giới hạn chiều rộng của các biểu đồ */
+            flex: 1; /* Cho phép co lại */
+            min-height: 225px; /* Đặt chiều cao tối thiểu cho mỗi bảng */
+            border: 2px solid rgba(0, 0, 0, 0.2); /* Viền mờ */
+            border-radius: 39px; /* Viền còng */
+            background-color: white; /* Nền trắng */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Bóng đổ */
+            padding: 10px; /* Khoảng cách bên trong */
+        }
+        #controls {
+            display: flex; /* Sử dụng flexbox cho phần điều khiển */
+            flex-direction: column; /* Sắp xếp dọc */
+            flex: 3; /* Chiếm 3 phần còn lại của chiều rộng */
+            max-width: 400px; /* Chiều rộng tối đa cho phần điều khiển */
+            margin-right: 90px;
+        }
+        
+        .status-box {
+            width: 100%;
+            height: 80px;
+            background-color: #f0f0f0; /* Màu nền mặc định cho ô */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 5px;
+            border-radius: 10px; /* Bo tròn góc */
+            font-size: 30px; /* Kích thước chữ */
+            color: #333; /* Màu chữ */
+        }
+
+        .status-box i {
+            margin-right: 20px; /* Khoảng cách giữa icon và văn bản */
+            font-size: 30px; /* Kích thước icon */
+        }
+
+        #message {
+            margin-bottom: 20px; /* Khoảng cách từ phần tin nhắn */
+            font-weight: bold; /* In đậm */
+        }
+
+        /* CSS cho modal */
+        .modal-header {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div id="charts">
+        <div class="chart-container" id="tempChart"></div>
+        <div class="chart-container" id="humChart"></div>
+        <div class="chart-container" id="lightChart"></div>
+    </div>
+
+    <div id="controls">
+        
+        <h1 style="font-size: 39px; text-align: center;">Chỉ số hiện tại</h1>
+        </br>
+        
+        <div class="status-box" id="temperature-box">
+            <i class="fas fa-thermometer-half"></i>
+            <span id="temp">...°C</span>
+        </div>
+
+        <div class="status-box" id="humidity-box">
+            <i class="fas fa-tint"></i>
+            <span id="humidity">...%</span>
+        </div>
+
+        <div class="status-box" id="light-box">
+            <i class="fas fa-sun"></i>
+            <span id="light">... Lux</span>
+        </div>
+ </br>
+ </br>
+
+<h1 style="font-size: 39px; text-align: center;">Điều khiển LED</h1>
+
+<div class="controls-container">
+    <button type="button" class="btn control-btn fan" data-device="LED1" data-state="off" onclick="toggleState(this)" 
+        style="border-radius: 8px; width: 80px; height: 80px; background-color: transparent; border: 3px solid gray; color: #f0f0f0;">
+        <i class="fas fa-wind"></i>
+    </button>
+
+    <button type="button" class="btn control-btn humidifier" data-device="LED2" data-state="off" onclick="toggleState(this)"
+        style="border-radius: 8px; width: 80px; height: 80px; background-color: transparent; border: 3px solid gray; color: #f0f0f0;">
+        <i class="fas fa-water"></i>
+    </button>
+
+    <button type="button" class="btn control-btn light" data-device="LED3" data-state="off" onclick="toggleState(this)"
+        style="border-radius: 8px; width: 80px; height: 80px; background-color: transparent; border: 3px solid gray; color: #f0f0f0;">
+        <i class="fas fa-lightbulb"></i>
+    </button>
+</div>
+
+<script>
+    function toggleState(button) {
+        const state = button.getAttribute('data-state');
+        if (state === 'off') {
+            button.setAttribute('data-state', 'on');
+            button.style.borderColor = 'blue';
+        } else {
+            button.setAttribute('data-state', 'off');
+            button.style.borderColor = 'red';
+        }
+    }
+</script>
+
+
+
+
+<script>
+function toggleState(button) {
+    const device = button.getAttribute('data-device');
+    const currentState = button.getAttribute('data-state');
+    const newState = currentState === 'off' ? 'on' : 'off';
+
+    // Cập nhật giao diện
+    button.setAttribute('data-state', newState);
+    button.style.backgroundColor = newState === 'on' ? 'dodgerblue' : 'red';
+
+    // Gửi yêu cầu tới server Node.js
+    fetch('/control-led', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ device: device, action: newState.toUpperCase() }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log(data.message); // Log phản hồi từ server
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}
+</script>
+
+
+        
+        
+<!-- Nút Search -->
+<button id="searchButton1" class="btn btn-primary" style="margin-top: 20px; font-size: 22px; padding: 8px;">Search</button>
+
+<!-- Nút MUA -->
+<button id="searchButton2" class="btn btn-primary" style="margin-top: 20px; font-size: 22px; padding: 8px;">MUA</button>
+
+<script>
+    // Thêm sự kiện cho nút Search
+    document.getElementById("searchButton1").addEventListener("click", function() {
+        window.location.href = "search.html"; // Đường dẫn tương đối
+    });
+
+    // Thêm sự kiện cho nút MUA
+    document.getElementById("searchButton2").addEventListener("click", function() {
+        window.location.href = "mua.html"; 
+    });
+</script>
+
+<script>
+   
+    let currentSensorPage = 1; 
+    const sensorLimit = 8; 
+    let sensorData = []; 
+
+    let currentDevicePage = 1; 
+    const deviceLimit = 5; 
+    let deviceData = []; 
+
+    function fetchData() {
+        fetch('/api/sensor_data/all')
+            .then(response => response.json())
+            .then(data => {
+                sensorData = data;
+                renderSensorTable();
+                updateCharts(sensorData.slice(-8)); // Cập nhật biểu đồ với 8 bản ghi mới nhất
+                updateCurrentValues(sensorData.slice(-1)[0]); // Cập nhật chỉ số hiện tại
+            })
+            .catch(error => console.error('Lỗi khi lấy dữ liệu sensor:', error));
+
+        fetch('/api/devices/all')
+            .then(response => response.json())
+            .then(data => {
+                deviceData = data;
+                renderDeviceTable();
+            })
+            .catch(error => console.error('Lỗi khi lấy dữ liệu thiết bị:', error));
+    }
+
+    function renderSensorTable() {
+        const tbody = $('#sensorTable tbody');
+        tbody.empty();
+
+        const start = (currentSensorPage - 1) * sensorLimit;
+        const end = start + sensorLimit;
+        const paginatedData = sensorData.slice(start, end);
+
+        paginatedData.forEach(row => {
+            const newRow = `<tr><td>${row.Temp}</td><td>${row.Hum}</td><td>${row.Light}</td><td>${row.Time}</td></tr>`;
+            tbody.append(newRow);
+        });
+
+        $('#sensorPageInfo').text(`Trang ${currentSensorPage} / ${Math.ceil(sensorData.length / sensorLimit)}`);
+        $('#sensorPrevPage').prop('disabled', currentSensorPage === 1);
+        $('#sensorNextPage').prop('disabled', end >= sensorData.length);
+    }
+
+    function renderDeviceTable() {
+        const tbody = $('#deviceTable tbody');
+        tbody.empty();
+
+        const start = (currentDevicePage - 1) * deviceLimit;
+        const end = start + deviceLimit;
+        const paginatedData = deviceData.slice(start, end);
+
+        paginatedData.forEach(row => {
+            const newRow = `<tr><td>${row.Device}</td><td>${row.Action}</td><td>${row.Time}</td></tr>`;
+            tbody.append(newRow);
+        });
+
+        $('#devicePageInfo').text(`Trang ${currentDevicePage} / ${Math.ceil(deviceData.length / deviceLimit)}`);
+        $('#devicePrevPage').prop('disabled', currentDevicePage === 1);
+        $('#deviceNextPage').prop('disabled', end >= deviceData.length);
+    }
+
+    function updateCurrentValues(latestData) {
+        if (latestData) {
+            $('#temp').text(`${latestData.Temp}°C`);
+            $('#humidity').text(`${latestData.Hum}%`);
+            $('#light').text(`${latestData.Light} Lux`);
+        }
+    }
+
+    function changeSensorPage(direction) {
+        if (direction === 'next' && (currentSensorPage * sensorLimit) < sensorData.length) {
+            currentSensorPage++;
+        } else if (direction === 'prev' && currentSensorPage > 1) {
+            currentSensorPage--;
+        }
+        renderSensorTable();
+    }
+
+    function changeDevicePage(direction) {
+        if (direction === 'next' && (currentDevicePage * deviceLimit) < deviceData.length) {
+            currentDevicePage++;
+        } else if (direction === 'prev' && currentDevicePage > 1) {
+            currentDevicePage--;
+        }
+        renderDeviceTable();
+    }
+
+    $('#sensorPrevPage').on('click', function() {
+        changeSensorPage('prev');
+    });
+
+    $('#sensorNextPage').on('click', function() {
+        changeSensorPage('next');
+    });
+
+    $('#devicePrevPage').on('click', function() {
+        changeDevicePage('prev');
+    });
+
+    $('#deviceNextPage').on('click', function() {
+        changeDevicePage('next');
+    });
+
+    $('#dataModal').on('show.bs.modal', function() {
+        fetchData();
+    });
+function drawCharts(data) {
+    // Biểu đồ nhiệt độ
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(function() {
+        const tempData = google.visualization.arrayToDataTable([
+            ['Time', 'Temperature', { role: 'annotation' }],
+            ...data.map(item => [item.Time, item.Temp, item.Temp.toString()])
+        ]);
+        const tempOptions = {
+            title: 'Nhiệt độ hiện tại (°C)',
+            curveType: 'function',
+            colors: ['red'], 
+            legend: { position: 'none' },
+            annotations: {
+                textStyle: {
+                    fontSize: 20,
+                    color: 'black',
+                    auraColor: 'none' // Không hiệu ứng xung quanh chữ
+                }
+            }
+        };
+        const tempChart = new google.visualization.LineChart(document.getElementById('tempChart'));
+        tempChart.draw(tempData, tempOptions);
+    });
+
+    // Biểu đồ độ ẩm
+    google.charts.setOnLoadCallback(function() {
+        const humData = google.visualization.arrayToDataTable([
+            ['Time', 'Humidity', { role: 'annotation' }],
+            ...data.map(item => [item.Time, item.Hum, item.Hum.toString()])
+        ]);
+        const humOptions = {
+            title: 'Độ ẩm hiện tại (%)',
+            curveType: 'function',
+            colors: ['cyan'], 
+            legend: { position: 'none' },
+            annotations: {
+                textStyle: {
+                    fontSize: 20,
+                    color: 'black',
+                    auraColor: 'none' // Không hiệu ứng xung quanh chữ
+                }
+            }
+        };
+        const humChart = new google.visualization.LineChart(document.getElementById('humChart'));
+        humChart.draw(humData, humOptions);
+    });
+
+    // Biểu đồ ánh sáng
+    google.charts.setOnLoadCallback(function() {
+        const lightData = google.visualization.arrayToDataTable([
+            ['Time', 'Light', { role: 'annotation' }],
+            ...data.map(item => [item.Time, item.Light, item.Light.toString()])
+        ]);
+        const lightOptions = {
+            title: 'Cường độ sáng hiện tại (Lux)',
+            curveType: 'function',
+            colors: ['gold'], 
+            legend: { position: 'none' },
+            annotations: {
+                textStyle: {
+                    fontSize: 20,
+                    color: 'black',
+                    auraColor: 'none' // Không hiệu ứng xung quanh chữ
+                }
+            }
+        };
+        const lightChart = new google.visualization.LineChart(document.getElementById('lightChart'));
+        lightChart.draw(lightData, lightOptions);
+    });
+}
+
+
+    // Cập nhật biểu đồ với 8 bản ghi mới nhất
+    function updateCharts(data) {
+        drawCharts(data.slice(-8)); // Lấy 8 bản ghi mới nhất
+    }
+
+    // Khởi chạy lần đầu
+    $(document).ready(function() {
+        fetchData(); // Gọi lần đầu để lấy dữ liệu khi trang được tải
+
+        // Thiết lập tự động cập nhật dữ liệu mỗi 5 giây
+        setInterval(fetchData, 5000); // Cập nhật dữ liệu mỗi 5000 ms (5 giây)
+    });
+
+
+
+
+
+
+</script>
+
+
+</body>
+</html>
