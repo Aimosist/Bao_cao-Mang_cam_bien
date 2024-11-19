@@ -2,7 +2,8 @@
 
 Mô tả:
 
-Bài tập này sử dụng ESP8266 để đo nhiệt độ, độ ẩm và cường độ ánh sáng, phát số liệu bằng tin nhắn qua Mosquitto MQTT cho Node.js xử lý, sau đó gửi dữ liệu lên MySQL. 
+Bài tập này sử dụng ESP8266 để đo nhiệt độ, độ ẩm và cường độ ánh sáng, phát số liệu bằng tin nhắn qua Mosquitto MQTT cho Node.js xử lý, sau đó gửi dữ liệu lên MySQL.
+ 
 Thiết bị cảm biến kết nối với ESP8266 sẽ liên tục thu thập dữ liệu và cập nhật dữ liệu để hiển thị các thông tin, bảng biểu kết hợp điều khiển Led của ESP8266 thông qua một web tạo ra từ Node.js.
 
 Thành phần sử dụng:
@@ -66,8 +67,11 @@ Hiển thị dữ liệu trên web:
 * Cấu trúc thư mục mẫu:
   
 sen.js
+
 _ index.html
+
 __ search.html
+
 __ mua.html
 
 * Khởi chạy file code "sen.js" để cập nhật dữ liệu trang web liên tục r dùng trình duyệt gõ "http://localhost:3000/" để mở web.
