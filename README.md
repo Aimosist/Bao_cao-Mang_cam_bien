@@ -10,7 +10,7 @@ Thành phần sử dụng:
 
 * ESP8266: giao tiếp với cảm biến và gửi số liệu các cảm biến cho Mosquitto MQTT.
 * Mosquitto MQTT: tạo tin nhắn để gửi cho Node.js từ số liệu các cảm biến, hỗ trợ giao tiếp qua MQTT.
-* Node.js: xử lý tin nhắn MQTT thành dữ liệu nhiệt độ, độ ẩm, ánh sáng,... để lưu trữ trên MySQL; tạo web từ các code html để hiển thị, vẽ bảng các data và điều khiển Led.
+* Node.js: xử lý tin nhắn MQTT thành dữ liệu nhiệt độ, độ ẩm, ánh sáng,... để lưu trữ trên MySQL; tạo web từ file "public" chứa các code html để hiển thị, vẽ bảng các data và điều khiển Led.
 * MySQL: lưu trữ thông tin nhiệt độ, độ ẩm,... ; vẽ bảng, hiển thị lịch sử data của cảm biến, lịch sử bật tắt Led;...
 * Cảm biến nhiệt độ (DHT11): Đo nhiệt độ và độ ẩm.
 * Cảm biến ánh sáng: Đo cường độ ánh sáng.
