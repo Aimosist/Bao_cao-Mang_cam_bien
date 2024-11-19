@@ -18,7 +18,7 @@ Thành phần sử dụng:
 * Dây breadboard.
 * Breadboard.
 * Nguồn cấp: Micro USB.
-* Các code js, html.
+* File Public chứa các code html.
   
 Phần mềm:
 * Arduino IDE: lập trình và nạp code cho ESP8266.
@@ -68,7 +68,9 @@ Hiển thị dữ liệu trên web:
   
 sen.js
 
-_ index.html
+_Public
+
+__ index.html
 
 __ search.html
 
