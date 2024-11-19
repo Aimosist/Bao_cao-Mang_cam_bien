@@ -25,31 +25,43 @@ Phần mềm:
 * Trình duyệt web để chạy.
 
 Kết nối mạch:
-DHT 11:
-* Chân VCC nối với 3.3V.
-* Chân GND nối với GND.
+
+1. DHT 11:
+* Chân VCC nối với 3.3V của ESP8266.
+* Chân GND nối với GND của ESP8266.
 * Chân Data nối với chân D2 của ESP8266.
   
-Cảm biến ánh sáng:
-* Chân VCC nối với 3.3V.
-* Chân GND nối với GND.
+2. Cảm biến ánh sáng:
+* Chân VCC nối với 3.3V của ESP8266.
+* Chân GND nối với GND của ESP8266.
 * Chân A0 nối với chân A0 của ESP8266.
 * Chân D0 nối với chân D1 của ESP8266 (chưa sử dụng).
 
+3. Các Led:
+* Cực âm của Led nối với GND của ESP8266.
+* Mỗi cực dương nối với mỗi trở 1k ôm rồi nối lần lượt với D0, D5, D6, D8.
+
 Cài đặt:
-1. Cài đặt Arduino IDE và thêm board ESP8266.
-2. Cài đặt các thư viện cần thiết: DHT Sensor Library, Adafruit Sensor Library, ESP8266WiFi, ESP8266WebServer.
-3. Kết nối ESP8266 với máy tính qua cổng USB, chọn board ESP8266.
+1. Cài đặt Arduino IDE và thêm các setup cho ESP8266.
+2. Cài đặt các thư viện cần thiết: ESP8266WiFi.h, PubSubClient.h, DHT.h, time.h.
+3. Kết nối ESP8266 với máy tính qua cổng USB, chọn board ESP8266, chọn COM tương ứng.
 4. Nạp code cho ESP8266.
-Cấu hình WIFI và MQTT
+
+Cấu hình WIFI và MQTT:
         Cấu hình lại Wifi cho phù hợp.
-                const char* ssid = "Tên WiFi";
-				const char* password = "Mật Khẩu WiFi";
+                const char* ssid = "Tên mạng";
+				const char* password = "Mật Khẩu mạng";
 				const char* mqtt_server = "Địa chỉ IP";
         Thay đổi user, password và port.
-Hiển thị dữ liệu trên web
-1. Ghi dữ liệu được gửi từ ESP vào database: sử dụng code để ghi dữ liệu (getdata.py).
+
+Hiển thị dữ liệu trên web:
+1. Ghi dữ liệu vào database MySQL và đẩy data lên Web: "sen.js"
 2. Giao diện web:
 * Cấu trúc thư mục mẫu:
+  
+sen.js
+_ index.html
+__ search.html
+__ mua.html
 
-* Khởi chạy file code get_data.py để cập nhật dữ liệu trang web liên tục. Sau khi chạy, mở địa chỉ có trong terminal để mở giao diện trang web.
+* Khởi chạy file code "sen.js" để cập nhật dữ liệu trang web liên tục r dùng trình duyệt gõ "http://localhost:3000/" để mở web.
