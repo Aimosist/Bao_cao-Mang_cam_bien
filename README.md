@@ -48,13 +48,19 @@ Cài đặt:
 4. Nạp code cho ESP8266.
 
 Cấu hình WIFI và MQTT:
-        Cấu hình lại Wifi cho phù hợp.
-                const char* ssid = "Tên mạng";
-				const char* password = "Mật Khẩu mạng";
-				const char* mqtt_server = "Địa chỉ IP";
-        Thay đổi user, password và port.
+        
+1. Cấu hình lại Wifi cho phù hợp:
+
+    const char* ssid = "Tên mạng"; 
+
+    const char* password = "Mật Khẩu mạng";
+
+    const char* mqtt_server = "Địa chỉ IP";
+
+2. Thay đổi user, password và port.
 
 Hiển thị dữ liệu trên web:
+
 1. Ghi dữ liệu vào database MySQL và đẩy data lên Web: "sen.js"
 2. Giao diện web:
 * Cấu trúc thư mục mẫu:
