@@ -25,12 +25,12 @@ Phần mềm:
 * Trình duyệt web để chạy.
 
 Kết nối mạch:
-- DHT 11:
+DHT 11:
 * Chân VCC nối với 3.3V.
 * Chân GND nối với GND.
 * Chân Data nối với chân D2 của ESP8266.
   
-- Cảm biến ánh sáng:
+Cảm biến ánh sáng:
 * Chân VCC nối với 3.3V.
 * Chân GND nối với GND.
 * Chân A0 nối với chân A0 của ESP8266.
